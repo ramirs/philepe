@@ -12,6 +12,28 @@ Philepe.prototype.updateTargetDims = function (dims) {
   }
 }
 
+Philepe.prototype.renderYAxis = function () {
+  //y axis
+  let yAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  yAxisElement.setAttribute("y1", "" + 0);
+  yAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
+  yAxisElement.setAttribute("stroke-width", "3");
+  yAxisElement.setAttribute("stroke", "#7f8c8d");
+  return yAxisElement;
+}
+
+Philepe.prototype.renderXAxis = function () {
+  //x axis
+  let xAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  xAxisElement.setAttribute("x1", "" + 0);
+  xAxisElement.setAttribute("x2", "" + this.targetDims.maxW);
+  xAxisElement.setAttribute("y1", "" + this.targetDims.maxH);
+  xAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
+  xAxisElement.setAttribute("stroke-width", "3");
+  xAxisElement.setAttribute("stroke", "#7f8c8d");
+  return xAxisElement;
+}
+
 Philepe.prototype.appendBarChart = function (anchor, data) {
   let dataToRender = data;
   this.updateTargetDims(anchor);
@@ -25,22 +47,8 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
 
   //render axis (if user allows)
   if(typeof data.axis === 'undefined' || data.axis) {
-    //y axis
-    let yAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    yAxisElement.setAttribute("y1", "" + 0);
-    yAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
-    yAxisElement.setAttribute("stroke-width", "3");
-    yAxisElement.setAttribute("stroke", "#7f8c8d");
-    barContainer.appendChild(yAxisElement);
-    //x axis
-    let xAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    xAxisElement.setAttribute("x1", "" + 0);
-    xAxisElement.setAttribute("x2", "" + this.targetDims.maxW);
-    xAxisElement.setAttribute("y1", "" + this.targetDims.maxH);
-    xAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
-    xAxisElement.setAttribute("stroke-width", "3");
-    xAxisElement.setAttribute("stroke", "#7f8c8d");
-    barContainer.appendChild(xAxisElement);
+    barContainer.appendChild(this.renderYAxis());
+    barContainer.appendChild(this.renderXAxis());
   }
 
   //begin to parse data attributes
