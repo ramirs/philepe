@@ -2,9 +2,17 @@
 
   let philepe = new Philepe();
 
+  let arrayOfRand = function (n) {
+    let arr = new Array();
+    for (let i = 0; i < n; i++) {
+      arr.push(Math.ceil(Math.random() * 100 / 10));
+    }
+    return arr;
+  };
+
   let createBarChart = function(container){
     philepe.appendBarChart(container, {
-      data: [1,2,4,3,6],
+      data: arrayOfRand(5),
       // minData: 1,
       // targetData: 5,
       // axis: false,//both axis, or separate y and x?
