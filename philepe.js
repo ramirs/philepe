@@ -47,7 +47,7 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
   }
   if(typeof data.minData !== 'undefined' && data.minData != null) {
     if(data.minData > elemMaxValue) {
-      elemMaxValue = data.minData; //...lol
+      elemMaxValue = data.minData;
     }
   }
   //first loop, check to 'finalize' maxValue in data
@@ -59,8 +59,6 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
   let positionLeft = 1;
   //create all bars and append them to container
   for (var j = 0; j <= dataToRender.data.length - 1; j++) {
-    console.log(dataToRender.data[j]);
-    // if(typeof elemMaxValue === 'undefined') { elemMaxValue = 0 }
     let barElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     barElement.setAttribute("height", "" + (dataToRender.data[j] / elemMaxValue) * targetDims.maxH);
     barElement.setAttribute("width", "" + elemW);
