@@ -1,7 +1,5 @@
 (function() {
 
-  let philepe = new Philepe();
-
   let arrayOfRand = function (n) {
     let arr = new Array();
     for (let i = 0; i < n; i++) {
@@ -11,6 +9,7 @@
   };
 
   let createBarChart = function(container){
+    let philepe = new Philepe();
     philepe.appendBarChart(container, {
       data: arrayOfRand(10),
       // minData: 1, //commenting this back will add the 'minData' line to the chart
