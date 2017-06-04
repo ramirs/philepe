@@ -13,19 +13,52 @@ Philepe.prototype.updateTargetDims = function (dims) {
 }
 
 Philepe.prototype.renderYAxis = function () {
-  //y axis
+
   let yAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
   yAxisElement.setAttribute("y1", "" + 0);
   yAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
   yAxisElement.setAttribute("stroke-width", "3");
   yAxisElement.setAttribute("stroke", "#7f8c8d");
+
   return yAxisElement;
 }
 
-Philepe.prototype.renderXAxis = function () {
-  //x axis
+Philepe.prototype.renderYAxisTicks = function (anchor, ticks, maxY) {
+  //TODO: render ticks
+
+  // console.log(ticks);
+  // console.log(maxY);
+
+  for(let i = 0; i <= ticks + 1; i++) {
+    let yAxisTick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    yAxisTick.setAttribute("stroke-width", "1");
+    yAxisTick.setAttribute("stroke", "#95a5a6");
+    yAxisTick.setAttribute("x1", "" + 0);
+    yAxisTick.setAttribute("x2", "" + this.targetDims.maxW);
+    yAxisTick.setAttribute("y1", this.targetDims.maxH / (ticks + 1) * i);
+    yAxisTick.setAttribute("y2", this.targetDims.maxH / (ticks + 1) * i);
+
+    // console.log(maxY / (ticks + 1) * i);
+    // console.log(yAxisTick);
+    anchor.appendChild(yAxisTick);
+    //
+    // let yTickLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    // yTickLabel.textContent = "" + Math.floor(maxY / (ticks + 1) * i);
+    // yTickLabel.setAttribute("fill", "#7f8c8d");
+    // yTickLabel.setAttribute("x", "-10");
+    // yTickLabel.setAttribute("y", this.targetDims.maxH / (ticks + 1) * i);
+    // // 0 + (vertical share)
+    // // console.log(yTickLabel);
+    // anchor.appendChild(yTickLabel);
+  }
+}
+
+Philepe.prototype.renderXAxis = function (ticks) {
+  //TODO: render ticks
+  // console.log(typeof ticks !== 'undefined')
+
   let xAxisElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
-  xAxisElement.setAttribute("x1", "" + 0);
+  xAxisElement.setAttribute("x1", "" + -10);
   xAxisElement.setAttribute("x2", "" + this.targetDims.maxW);
   xAxisElement.setAttribute("y1", "" + this.targetDims.maxH);
   xAxisElement.setAttribute("y2", "" + this.targetDims.maxH);
@@ -43,13 +76,8 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
   let barContainer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   barContainer.setAttribute("height", "" + this.targetDims.maxH);
   barContainer.setAttribute("width", "" + this.targetDims.maxW);
+  // barContainer.setAttribute("style", "padding: 20px;");
   //attributes can also set style
-
-  //render axis (if user allows)
-  if(typeof data.axis === 'undefined' || data.axis) {
-    barContainer.appendChild(this.renderYAxis());
-    barContainer.appendChild(this.renderXAxis());
-  }
 
   //begin to parse data attributes
   let elemCount = dataToRender.data.length;
@@ -70,6 +98,7 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
     }
   }
   let positionLeft = 1;
+
   //create all bars and append them to container
   for (var j = 0; j <= dataToRender.data.length - 1; j++) {
     let barElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -107,7 +136,16 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
     barContainer.appendChild(maxLineElement);
   }
 
-  //optional user input : ticks to
+  //render axis (if user allows)
+  if(typeof data.axis === 'undefined' || data.axis) {
+    barContainer.appendChild(this.renderYAxis());
+    barContainer.appendChild(this.renderXAxis(data.ticks));
+  }
+
+  if(typeof data.ticks !== 'undefined') {
+    // TODO: render x and y axis
+    // this.renderYAxisTicks(barContainer, data.ticks, elemMaxValue);
+  }
 
   //append container, which has at least all bars and any optional user inputs attached
   anchor.appendChild(barContainer);
