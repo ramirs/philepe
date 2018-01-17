@@ -1,29 +1,42 @@
 (function() {
 
   let philepe = new Philepe();
+  let container = document.getElementById("bar-chart-container");
+  let lastRand;
 
   let arrayOfRand = function (n) {
+    let maxNum = document.getElementById('input-max-element').value;
     let arr = new Array();
     for (let i = 0; i < n; i++) {
-      arr.push(Math.ceil(Math.random() * 100 / 10));
+      arr.push(Math.ceil(Math.random() * maxNum));
     }
-    return arr;
+    lastRand = arr;
+    return lastRand;
   };
 
-  let createBarChart = function(container){
+  let createBarChart = function (){
     philepe.appendBarChart(container, {
-      data: arrayOfRand(5),
-      // minData: 1,
-      // targetData: 5,
-      // axis: false,//both axis, or separate y and x?
-      // ticks: 0,//scaled to maxValueHeight (maxValue = 5, ticks = 10, step every 0.5 || maxValue = 10, ticks = 4, step every 2.5)
-      // tickOrientation: null,//origin: start tick value at 0, excluding max value || center: exclude 0 and max value from tick positions || maxFirst: exclude 0 from tick values || null: default (inclusive of 0 and max value)
-      // colors: {bars:'', axis:'', ticks:'', labels:''},//custom styles for objects
-      // orientation: null//horizontal or vertical
-      // negativeValues: true//adjust axis height and bar placement
+      data: typeof lastRand === 'undefined'? arrayOfRand(document.getElementById('input-elements').value) : lastRand,
+      minData: document.getElementById('input-min').value,
+      targetData: document.getElementById('input-max').value,
+      axis: true,
     });
   };
 
-  createBarChart(document.getElementById("bar-chart-container"));
+  let repaintBars = function () {
+    container.innerHTML = '';
+    createBarChart();
+  };
+  let updateData = function () {
+    arrayOfRand(document.getElementById('input-elements').value);
+    repaintBars();
+  };
+
+  document.getElementById('input-elements').addEventListener('change', updateData);
+  document.getElementById('input-max-element').addEventListener('change', updateData);
+  document.getElementById('input-min').addEventListener('change', repaintBars);
+  document.getElementById('input-max').addEventListener('change', repaintBars);
+    
+  createBarChart();
 
 })();
