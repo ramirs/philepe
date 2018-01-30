@@ -6,7 +6,6 @@ Philepe.prototype.init = function () {};
 
 Philepe.prototype.appendBarChart = function (anchor, data) {
   let dataToRender = data;
-  console.log(dataToRender);
   let targetDims = { //container client dims
     maxH: anchor.clientHeight,
     maxW: anchor.clientWidth
@@ -59,7 +58,6 @@ Philepe.prototype.appendBarChart = function (anchor, data) {
   let positionLeft = 1;
   //create all bars and append them to container
   for (var j = 0; j <= dataToRender.data.length - 1; j++) {
-    console.log(dataToRender.data[j]);
     // if(typeof elemMaxValue === 'undefined') { elemMaxValue = 0 }
     let barElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     barElement.setAttribute("height", "" + (dataToRender.data[j] / elemMaxValue) * targetDims.maxH);
