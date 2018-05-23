@@ -3,16 +3,76 @@ html, body{
   padding: 0;
 }
 body {
-  width:100%;
-  height:100%;
+  width:100vw;
+  height:100vh;
   position: relative;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 5vh;
 }
 #bar-chart-container {
-  width: 400px;
-  height: 350px;
+  width: 80vw;
+  height: 60vh;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+.flexbox {
+  display: flex;
+}
+.input-section {
+  flex: 1;
+  max-width: 275px;
+  margin: auto;
+}
+.input-section > span {
+  border-bottom: 3px solid #f3f3f3;
+  text-align: center;
+  line-height: 40px;
+  display: inline-block;
+  width: 100%;
+}
+.input-row {
+  margin-top: 5px;
+  position: relative;
+  height: 35px;
+  line-height: 35px;
+}
+.input-row > input {
   position: absolute;
-  top: 50%;
-  margin-top: 125px;
-  left: 50%;
-  margin-left: -200px;
+  right: 0px;
+}
+label {
+  width: 200px;
+  margin-right: 25px;
+}
+input {
+  height: 23px;
+  padding: 4px;
+}
+input[type="number"] {
+  width: 45px;
+}
+
+@media screen and (max-width: 625px) {
+  body {
+    padding-top: 0vh;
+    font-size: 13px;
+  }
+  #bar-chart-container {
+    margin-top: 2vh;
+  }
+  .flexbox {
+    display: block;
+    margin: auto;
+  }
+
+  .input-section {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0px 15px;
+    box-sizing: border-box;
+  }
+
 }

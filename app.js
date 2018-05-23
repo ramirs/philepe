@@ -1,17 +1,26 @@
 (function() {
 
+  let philepe = new Philepe();
+  let container = document.getElementById("bar-chart-container");
+  let lastRand;
+
   let arrayOfRand = function (n) {
+    let maxNum = document.getElementById('input-max-element').value;
     let arr = new Array();
     for (let i = 0; i < n; i++) {
-      arr.push(Math.ceil(Math.random() * 100 / 10));
+      arr.push(Math.ceil(Math.random() * maxNum));
     }
-    return arr;
+    lastRand = arr;
+    return lastRand;
   };
 
-  let createBarChart = function(container){
-    let philepe = new Philepe();
+  let createBarChart = function () {
     philepe.appendBarChart(container, {
-      data: arrayOfRand(10),
+      data: typeof lastRand === 'undefined'? arrayOfRand(document.getElementById('input-elements').value) : lastRand,
+      minData: document.getElementById('input-min').value,
+      targetData: document.getElementById('input-max').value,
+      axis: true,
+
       // minData: 1, //commenting this back will add the 'minData' line to the chart
       // targetData: 5, //commenting this back will add the 'targetData' line to the chart
       // axis: false, //commenting this back will remove the axis on both sides
@@ -20,9 +29,25 @@
       // colors: {bars:'', axis:'', ticks:'', labels:''}, //TODO: custom styles for objects
       // orientation: null, //TODO: horizontal or vertical
       // negativeValues: true //TODO: adjust axis height and bar placement
+
     });
   };
 
-  createBarChart(document.getElementById("bar-chart-container"));
+  let repaintBars = function () {
+    container.innerHTML = '';
+    createBarChart();
+  };
+  
+  let updateData = function () {
+    arrayOfRand(document.getElementById('input-elements').value);
+    repaintBars();
+  };
+
+  document.getElementById('input-elements').addEventListener('change', updateData);
+  document.getElementById('input-max-element').addEventListener('change', updateData);
+  document.getElementById('input-min').addEventListener('change', repaintBars);
+  document.getElementById('input-max').addEventListener('change', repaintBars);
+    
+  createBarChart();
 
 })();
