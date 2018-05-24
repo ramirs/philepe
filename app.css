@@ -11,9 +11,11 @@ body {
   padding-top: 5vh;
 }
 #bar-chart-container {
-  width: 80vw;
-  height: 60vh;
+  width: 40vw;
+  height: 30vh;
   margin: auto;
+}
+#bar-chart-container > svg {
   margin-top: 5vh;
 }
 
