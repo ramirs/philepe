@@ -1,0 +1,28 @@
+{
+  "name": "philepejs",
+  "version": "1.0.0",
+  "description": "A simple and lightweight data visualiation library",
+  "main": "app.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build-dev": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramirs/philepe.git"
+  },
+  "author": "Stephen J. Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramirs/philepe/issues"
+  },
+  "homepage": "https://github.com/ramirs/philepe#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.2",
+    "html-webpack-plugin": "^4.0.0-beta.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  }
+}

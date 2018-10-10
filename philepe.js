@@ -1,4 +1,3 @@
-
 /**
  * PHILEPE.JS
  * 
@@ -8,11 +7,11 @@
 /**
  * Root object for any Philepe chart
  */
-class Philepe {
+  export class Philepe {
   /**
    * @param {HTMLElement} container renders the axis lines for any chart
    */
-  constructor(container){
+  constructor(container, options) {
     /**
      * Theme config for styling
      */
@@ -24,6 +23,11 @@ class Philepe {
       minLine: 'red',
       dots: "#2c3e50"
     }
+
+    // TODO: let user customize theme
+    // if(typeof options !== 'undefined' && options.bars) {
+    //   this.theme.bars = options.bars
+    // }
 
     this.dims = { h: container.clientHeight, w: container.clientWidth };
     this.boundary = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -78,6 +82,15 @@ class Philepe {
 
     return xAxisElement;
   }
+  // /**
+  //  * TODO: generate tooltips
+  //  * do this on click first
+  //  */
+  // renderTooltip(data, location) {
+  //   if(typeof this.toolTip === 'undefined') {
+  //     this.toolTip = 
+  //   }
+  // }
   /**
    * @returns an svg line element
    */
@@ -115,12 +128,14 @@ class Philepe {
     return barElement
   }
 };
+
+
 /**
  * Bar Chart object
- */
-class BarChart extends Philepe {
-  constructor(container, data) {
-    super(container);
+ */ 
+export class BarChart extends Philepe {
+  constructor(container, data, options) {
+    super(container, options);
 
     this.render(data);
   }
@@ -160,10 +175,13 @@ class BarChart extends Philepe {
     }
   }
 };
+
+
+
 /**
  * Bullet Chart object
  */
-class BulletChart extends Philepe {
+export class BulletChart extends Philepe {
   constructor(container, data) {
     super(container);
 
@@ -251,7 +269,7 @@ class BulletChart extends Philepe {
       minLineElement.addEventListener("mouseover", function () {
         console.log(minLineElement);
       });
-      
+
       this.boundary.appendChild(minLineElement);
 
       positionLeft = positionLeft + 2;//accounts for padding between bar
@@ -267,10 +285,13 @@ class BulletChart extends Philepe {
     }
   }
 };
+
+
+
 /**
  * ScatterPlot object
  */
-class ScatterPlot extends Philepe {
+export class ScatterPlot extends Philepe {
   constructor(container, data) {
     super(container);
 
@@ -306,10 +327,13 @@ class ScatterPlot extends Philepe {
     }
   }
 };
+
+
+
 /**
  * Line Chart object
  */
-class LineChart extends Philepe {
+export class LineChart extends Philepe {
   constructor(container, data) {
     super(container);
 
@@ -343,38 +367,6 @@ class LineChart extends Philepe {
       this.boundary.appendChild(el);
       positionLeft = positionLeft + 2;//accounts for padding between bar
     }
-  }
-};
-
-const MockData = function (n, config) {
-
-  let maxNum = 25;
-  let arr = new Array();
-
-  /**
-   * Returns a random integer between two values min and max
-   * @param {int} min 
-   * @param {int} max
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random 
-   */
-  let getRandomInt = function (min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  switch (config) {
-
-  case 'Linear':
-    for (let i = 0; i < n; i++) {
-      arr.push(getRandomInt(i, i + 10));
-    }
-    return arr;
-  default:
-    for (let i = 0; i < n; i++) {
-      arr.push(getRandomInt(0, maxNum));
-    }
-    return arr;
   }
 };
 
