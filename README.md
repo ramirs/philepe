@@ -1,33 +1,63 @@
-## Function
 
-### Philepe.appendBarChart(anchor, data)
-This function dynamically appends svg bars to a bar chart container, which is provided in the parameter.
+# Philepe.js
 
-The bars will scale so that they are all spaced out and sized evenly, relative to the dimensions of their parent container.
+Lightweight
+* ~10 kb
 
-### appendBarChart() attributes
-* anchor (html element, div) : DOM object to append to
-* data (array of values, int) : each value represents one 'bar'
-* minData: (single value, int) : draws a dotted line on the chart at the y position 'minData'
-* targetData (single value, int) : draws a dotted line on the chart at the y position 'targetData'
-* axis (boolean) : if true, renders axis for graph (x and y), defaults true
+Simple to Use
+* Pass in arrays of data
 
+Extensible
+* This library is build using es6 classes, feel free to extend and add new visualiations and submit a PR if you make something worth sharing
+
+### Charts, explained
+
+All charts have
+* Containers
+* Generators
+* Options
+
+Containers
+* HTML elements used to anchor each type of chart
+* Each container will render an x and y axis on the left and bottom boundary of the anchor element
+* Each container needs a static height and width defined
+
+Generators
+* Generators are private internal functions that create html elements with configuration options
+* Line Generator
+* Bar Generator
+
+Root Chart Options
 ```
-// example.js
-
-philepe.appendBarChart(document.getElementById('containerDiv'), {
-  data: [1, 2, 3, 4, 5, ...],
-  minData: 2,
-  targetData: 4,
-  axis: true
-});
+theme: {
+  ///TODO
+}
 ```
 
-## Built With
+### Axis
 
-* HTML/CSS
-* Vanilla Javascript
+* SVG Line elements appended to each container
+* X and Y axis enabled by default
 
-## Authors
+### Bar Graphs
+
+Data Format
+
+Options
+
+### Logger
+
+Produces detailed errors in the console to help guide you through usage of the library
+
+## Installation
+
+As a module
+* copy / paste the js file into your codebase
+
+Sandbox Environment
+* git clone
+* npm i
+
+## Author
 
 * [Stephen Ramirez](https://github.com/ramirs/)
