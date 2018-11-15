@@ -53,3 +53,11 @@ new Philepe.BarChart(document.getElementById("chart1"), mockData(25, "Linear"));
 new Philepe.LineChart(document.getElementById("chart2"), mockData(25, "Linear"));
 new Philepe.ScatterPlot(document.getElementById("chart3"), mockData(25, "Linear"));
 new Philepe.BulletChart(document.getElementById("chart4"), bulletChartTestData);
+
+
+// how to do combined charts?
+// new Philepe.GroupChart(document.getElementById("chart5"), mockData(25, "Linear"))
+new Philepe.BarChart(document.getElementById("chart5"), mockData(25, "Linear"));
+new Philepe.LineChart(document.getElementById("chart5"), mockData(25, "Linear"));
+
+

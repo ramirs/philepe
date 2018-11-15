@@ -86,10 +86,26 @@
   //  * TODO: generate tooltips
   //  * do this on click first
   //  */
-  // renderTooltip(data, location) {
+  // renderTooltip(event, data) {
   //   if(typeof this.toolTip === 'undefined') {
-  //     this.toolTip = 
+
+  //     // create a new div element 
+  //     this.toolTip = document.createElement("div"); 
+  //     this.toolTip.setAttribute('id', 'philepe-tooltip-tag')
+  //     let content = document.createTextNode(data); 
+  //     this.toolTip.appendChild(content);
+  //     this.toolTip.style.position = 'absolute';
+  //     this.toolTip.style.left = `${event.x}px`;
+  //     this.toolTip.style.top = `${event.y}px`;
+  //     this.toolTip.style.width = '200px';
+  //     this.toolTip.style.height = '120px';
+  //     // add the newly created element and its content into the DOM 
+  //     document.body.appendChild(this.toolTip);
   //   }
+  // }
+
+  // destroyTooltip () {
+  //   this.toolTip.parentNode.removeChild(this.toolTip);
   // }
   /**
    * @returns an svg line element
@@ -115,6 +131,8 @@
    * @returns an svg rect element
    */
   barGenerator (config) {
+    // TODO: switch to using svg viewboxes (padding helps with tooltips)
+    // https://codepen.io/anon/pen/OBjaxg
     let barElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 
     let fill = config.fill || this.theme.bars;
@@ -149,15 +167,16 @@ export class BarChart extends Philepe {
     let elemCount = d.length;
     let elemW = this.dims.w / ((elemCount * 2) + 1);
     let elemMaxValue = 0;
+    let that = this;
     //first loop, check to 'finalize' maxValue in data
-    for (var i = 0; i < d.length; i++) {
+    for (let i = 0; i < d.length; i++) {
       if(d[i] > elemMaxValue) {
         elemMaxValue = d[i];
       }
     }
     let positionLeft = 1;
     //create all bars and append them to container
-    for (var j = 0; j <= d.length - 1; j++) {
+    for (let j = 0; j <= d.length - 1; j++) {
 
       let barElement = this.barGenerator({
         height: (d[j] / elemMaxValue) * this.dims.h,
@@ -166,8 +185,14 @@ export class BarChart extends Philepe {
         y: (elemMaxValue - d[j]) / elemMaxValue * this.dims.h 
       });
 
-      barElement.addEventListener("mouseover", function () {
-        console.log(barElement);
+      barElement.addEventListener("mouseover", function (event) {
+        this.setAttribute('opacity', '0.75');
+        that.renderTooltip(event, `Value ${d[j]}`);
+      });
+
+      barElement.addEventListener("mouseout", function (event) {
+        this.setAttribute('opacity', '1.0');
+        that.destroyTooltip();
       });
 
       this.boundary.appendChild(barElement);

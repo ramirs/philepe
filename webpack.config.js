@@ -6,7 +6,8 @@ module.exports = {
   entry: ["./require.js", "./src/app.js", "./philepe.js"],
   mode: "development",
   output: {
-    filename: "./bundle.js"
+    filename: "./bundle.js",
+    path: __dirname
   },
   plugins: [
     new HtmlWebpackPlugin({
